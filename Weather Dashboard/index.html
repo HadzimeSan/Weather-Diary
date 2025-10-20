@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Персональный Дневник Погоды</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1 data-i18n="app.title">Персональный Дневник Погоды</h1>
+        <div class="row" style="justify-content:center; margin-bottom:8px">
+            <label for="lang-select" class="muted" style="margin-right:6px" data-i18n="app.language">Язык</label>
+            <select id="lang-select" aria-label="Язык">
+                <option value="ru">Русский</option>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+            </select>
+        </div>
+        <div class="search-bar">
+            <input id="city-input" type="text" placeholder="Введите город (например, Москва)" data-i18n-placeholder="search.placeholder" aria-label="Город">
+            <button id="search-btn" aria-label="Найти" data-i18n="search.button">Найти</button>
+        </div>
+        <div class="history" id="history"></div>
+    </header>
+
+    <main class="grid">
+        <section class="panel current" aria-live="polite">
+            <h2 data-i18n="section.now">Сейчас</h2>
+            <div id="current-weather" class="card placeholder" data-i18n="message.start">Введите город и нажмите Найти</div>
+        </section>
+
+        <section class="panel forecast">
+            <h2 data-i18n="section.forecast">Прогноз на 5 дней</h2>
+            <div id="forecast" class="forecast-list"></div>
+        </section>
+
+        <section class="panel diary">
+            <h2 data-i18n="section.diary">Дневник</h2>
+            <form id="diary-form">
+                <div class="row">
+                    <input id="diary-date" type="date" aria-label="Дата">
+                    <input id="diary-city" type="text" placeholder="Город для заметки" data-i18n-placeholder="diary.cityPlaceholder" aria-label="Город заметки">
+                </div>
+                <textarea id="diary-note" rows="4" placeholder="Ваши ощущения от погоды, планы, наблюдения..." data-i18n-placeholder="diary.notePlaceholder" aria-label="Заметка"></textarea>
+                <div class="row right">
+                    <button type="submit" data-i18n="diary.save">Сохранить заметку</button>
+                </div>
+            </form>
+            <div id="diary-list" class="diary-list"></div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <span data-i18n="footer.source">Данные погоды: OpenWeatherMap</span>
+        <a href="https://openweathermap.org/" target="_blank" rel="noopener" data-i18n="footer.link">Сайт API</a>
+    </footer>
+
+    <template id="forecast-item-tpl">
+        <div class="card forecast-item">
+            <div class="row space">
+                <span class="date"></span>
+                <img class="icon" alt="Иконка погоды">
+            </div>
+            <div class="temp"></div>
+            <div class="desc"></div>
+        </div>
+    </template>
+
+    <script>
+        window.__WEATHER_API_KEY__ = '2acf126b164082dd65c9aaa5f36dfe62';
+    </script>
+    <script src="app.js" defer></script>
+</body>
+</html>
+
+
